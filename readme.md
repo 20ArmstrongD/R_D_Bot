@@ -8,7 +8,7 @@ Please follow the [intructions](instructions.md) to get started.
 
 Happy coding. 
 
-Please message uus with any questions or further improvement.
+Please message us with any questions or ways to further improve the bot.
 
 You can email Donnie through his website [here](https://20armstrongd.github.io/website-personal/)
 
