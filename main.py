@@ -1,11 +1,7 @@
-#code 
-
-
 import os
 import discord
 from discord.ext import commands
 from openai import OpenAI
-import openai
 
 # loading the variables from the .env file
 from dotenv import load_dotenv
@@ -16,47 +12,46 @@ intents = discord.Intents.default()
 intents.message_content = True
 bot = commands.Bot(command_prefix='!', intents=intents)
 
-
 # OpenAI setup
-
-client = OpenAI(api_key=os.environ.get('OPENAI_KEY')
+client = OpenAI(
+    api_key=os.environ.get("OPENAI_KEY"),
 )
-openai.api_key = os.getenv('OPENAI_KEY')
-openai.organization = os.getenv('OPENAI_ORG')
 
 # when the bot is ready
 @bot.event
-async def onready ():
+async def on_ready():
     print(f'{bot.user.name} has connected')
 
 
 # creating the message
 @bot.event
-async def onmessage (message):
+async def on_message(message):
     if message.author.bot:
         return
     
-    params = {"model": "gpt-3.5-turbo", 
-              "messages": [{"role": "user", "content": message.content}],
-              "max_tokens": 30,
-              "stop": ["Mantis Taboggen, M.D.", "ribone_", "BigDon(g)" ]
-    }
-
+    prompt = message.content
     try:
-        MantisResponse = openai.ChatCompletion.create(**params)
+        chat_completion = client.chat.completions.create(
+            messages=[
+                {
+                    "role": "user",
+                    "content": prompt,
+                }
+            ],
+            model="gpt-3.5-turbo",
+        )
+        
+        print(prompt)
+        response = chat_completion.choices[0].message.content
+        print(response)
 
-        print(message.content)
-        print(MantisResponse["choices"][0]["message"]["content"])
-
-        await message.reply(MantisResponse["choices"][0]["message"]["content"])
+        await message.channel.send(response)  # Sending the response to the same channel where the message was received
 
     except Exception as e:
         print(e)
 
     await bot.process_commands(message)
 
-
-
 # starting the bot
 bot.run(os.getenv('DISCORD_TOKEN'))
-print("")
+print("Yoo, Suuuuup")
