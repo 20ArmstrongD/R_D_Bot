@@ -4,7 +4,7 @@ This bot is a collaboration between [Donnie Armstrong](https://github.com/20Arms
 
 It was made in python as a way to implement ChatGBT to your discord server.
 
-Please follow the [intructions](instructions.md) to get started.
+Please follow the [instructions](instructions.md) to get started.
 
 Happy coding. 
 
