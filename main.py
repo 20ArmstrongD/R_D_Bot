@@ -4,6 +4,7 @@
 import os
 import discord
 from discord.ext import commands
+from openai import OpenAI
 import openai
 
 # loading the variables from the .env file
@@ -17,6 +18,9 @@ bot = commands.Bot(command_prefix='!', intents=intents)
 
 
 # OpenAI setup
+
+client = OpenAI(api_key=os.environ.get('OPENAI_KEY')
+)
 openai.api_key = os.getenv('OPENAI_KEY')
 openai.organization = os.getenv('OPENAI_ORG')
 
